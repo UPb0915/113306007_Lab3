@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lab3</title>
+
+     <style>
+        .picture {
+            width: 200px;
+            height: auto;
+        }
+    </style>
+
+</head>
+<body>
+   
+    <h1>113306007_Lab3_Number Guessing Game</h1>
+    <div id="result"></div>
+
+<script>
+    var numberOfTimes = 7;
+    var correctNumber = Math.floor(Math.random() * 98) + 2;
+    var input = window.prompt("Please enter a number between 1 and 100\nYou have " + numberOfTimes + " chances.");
+
+    var upperLimit = 100;
+    var lowerLimit = 1;
+    var found = false;
+
+     if (input == correctNumber) {
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<img src="correct.jpg" alt="Correct">';
+        found = true;
+        alert('Congratulations! You guessed the correct number.');
+    }
+
+    while (input != correctNumber && !found && numberOfTimes > 0) {
+        input = parseInt(input, 10);
+
+        if (isNaN(input) || input >= upperLimit || input <= lowerLimit) {
+            alert('Please enter a number within the valid range! (You cannot select the upper and lower limits of the range)');
+            input = window.prompt("Please enter a number between " + lowerLimit + " and " + upperLimit + "\nYou have " + numberOfTimes + " chances left.");
+        } else if (input < correctNumber) {
+            numberOfTimes--;
+            lowerLimit = input; 
+            input = window.prompt("Please enter a number between " + lowerLimit + " and " + upperLimit + "\nYou have " + numberOfTimes + " chances left.");
+        } else if (input > correctNumber) {
+            numberOfTimes--;
+            upperLimit = input; 
+            input = window.prompt("Please enter a number between " + lowerLimit + " and " + upperLimit + "\nYou have " + numberOfTimes + " chances left.");
+        } else if (input == correctNumber) {
+             var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<img src="correct.jpg" alt="Correct">';
+            alert('Congratulations! You guessed the correct number.');
+            found = true;
+        }
+    }
+
+    if (numberOfTimes == 0 && !found) {
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = '<img src="wrong.jpg" alt="Wrong">';
+        alert('Sorry, you have no more chances left. The correct number was ' + correctNumber + '.');
+    }
+</script>
+
+</body>
+</html>
